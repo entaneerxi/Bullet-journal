@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BuJo — Bullet Journal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="notebook">
+    <header class="notebook-header">
+      <h1 class="title">📓 BuJo — Bullet Journal</h1>
+      <nav class="tabs">
+        <button class="tab active" data-tab="daily">Daily Log</button>
+        <button class="tab" data-tab="monthly">Monthly Log</button>
+        <button class="tab" data-tab="habits">Habit Tracker</button>
+        <button class="tab" data-tab="yearly">Yearly Log</button>
+        <button class="tab" data-tab="collections">Collections</button>
+      </nav>
+    </header>
+
+    <!-- ==================== DAILY LOG ==================== -->
+    <section id="daily" class="page active">
+      <h2 class="page-title">Daily Log — <span id="daily-date"></span></h2>
+
+      <div class="daily-controls">
+        <div class="entry-form">
+          <select id="entry-type" aria-label="Entry type">
+            <option value="task">• Task</option>
+            <option value="event">○ Event</option>
+            <option value="note">— Note</option>
+          </select>
+          <input type="text" id="entry-text" placeholder="Write something…" aria-label="Entry text">
+          <button id="add-entry" class="btn">Add</button>
+        </div>
+        <div class="search-bar">
+          <input type="text" id="search-input" placeholder="Search entries…" aria-label="Search entries">
+        </div>
+      </div>
+
+      <ul id="entry-list" class="entry-list"></ul>
+
+      <div class="mood-section">
+        <h3>Mood Tracker</h3>
+        <div class="mood-options">
+          <button class="mood-btn" data-mood="😊" aria-label="Happy">😊</button>
+          <button class="mood-btn" data-mood="😐" aria-label="Neutral">😐</button>
+          <button class="mood-btn" data-mood="😢" aria-label="Sad">😢</button>
+          <button class="mood-btn" data-mood="😡" aria-label="Angry">😡</button>
+          <button class="mood-btn" data-mood="😴" aria-label="Sleepy">😴</button>
+        </div>
+        <p id="mood-display">Today's mood: <span id="current-mood">—</span></p>
+      </div>
+
+      <button id="export-btn" class="btn export-btn">Export as .txt</button>
+    </section>
+
+    <!-- ==================== MONTHLY LOG ==================== -->
+    <section id="monthly" class="page">
+      <h2 class="page-title">Monthly Log — <span id="monthly-title"></span></h2>
+      <div class="monthly-nav">
+        <button id="prev-month" class="btn" aria-label="Previous month">◀</button>
+        <button id="next-month" class="btn" aria-label="Next month">▶</button>
+      </div>
+      <table id="monthly-table" class="monthly-table">
+        <thead>
+          <tr><th>Date</th><th>Day</th><th>Notes</th></tr>
+        </thead>
+        <tbody id="monthly-body"></tbody>
+      </table>
+    </section>
+
+    <!-- ==================== HABIT TRACKER ==================== -->
+    <section id="habits" class="page">
+      <h2 class="page-title">Habit Tracker — <span id="habit-month-title"></span></h2>
+      <div class="habit-controls">
+        <input type="text" id="habit-input" placeholder="New habit…" aria-label="New habit name">
+        <button id="add-habit" class="btn">Add Habit</button>
+      </div>
+      <div class="habit-table-wrap">
+        <table id="habit-table" class="habit-table">
+          <thead id="habit-thead"></thead>
+          <tbody id="habit-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ==================== YEARLY LOG ==================== -->
+    <section id="yearly" class="page">
+      <h2 class="page-title">Yearly Log — <span id="yearly-title"></span></h2>
+      <div class="yearly-nav">
+        <button id="prev-year" class="btn" aria-label="Previous year">◀</button>
+        <button id="next-year" class="btn" aria-label="Next year">▶</button>
+      </div>
+      <div id="yearly-grid" class="yearly-grid"></div>
+    </section>
+
+    <!-- ==================== COLLECTIONS ==================== -->
+    <section id="collections" class="page">
+      <h2 class="page-title">Collections</h2>
+      <div class="collection-controls">
+        <input type="text" id="collection-title-input" placeholder="Collection title…" aria-label="Collection title">
+        <button id="add-collection" class="btn">Add Collection</button>
+      </div>
+      <div id="collections-grid" class="collections-grid"></div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
