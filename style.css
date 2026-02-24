@@ -1,0 +1,272 @@
+/* ========== BASE / RESET ========== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Courier New',Courier,monospace;
+  background:#f5f0e8;
+  color:#333;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  padding:24px 12px;
+}
+
+/* ========== NOTEBOOK ========== */
+.notebook{
+  width:100%;
+  max-width:860px;
+  background:#fffef9;
+  border:2px solid #c9b99a;
+  border-radius:6px;
+  box-shadow:4px 4px 0 #c9b99a;
+  padding:24px 28px 32px;
+  position:relative;
+}
+.notebook::before{
+  content:'';
+  position:absolute;
+  left:60px;top:0;bottom:0;
+  width:2px;
+  background:#e8b4b8;
+  opacity:.5;
+}
+
+/* ========== HEADER ========== */
+.notebook-header{margin-bottom:20px}
+.title{
+  font-size:1.6rem;
+  text-align:center;
+  margin-bottom:16px;
+  letter-spacing:1px;
+}
+.tabs{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.tab{
+  background:none;
+  border:1.5px solid #c9b99a;
+  border-radius:4px;
+  padding:6px 14px;
+  font-family:inherit;
+  font-size:.85rem;
+  cursor:pointer;
+  transition:background .2s,color .2s;
+}
+.tab:hover{background:#f0e8d8}
+.tab.active{background:#333;color:#fffef9;border-color:#333}
+
+/* ========== PAGES ========== */
+.page{display:none}
+.page.active{display:block}
+.page-title{
+  font-size:1.15rem;
+  border-bottom:1.5px dashed #c9b99a;
+  padding-bottom:6px;
+  margin-bottom:16px;
+}
+
+/* ========== BUTTONS ========== */
+.btn{
+  background:#333;
+  color:#fffef9;
+  border:none;
+  border-radius:4px;
+  padding:6px 14px;
+  font-family:inherit;
+  font-size:.82rem;
+  cursor:pointer;
+  transition:opacity .2s;
+}
+.btn:hover{opacity:.8}
+
+/* ========== DAILY LOG ========== */
+.daily-controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.entry-form{display:flex;gap:6px;flex:1;min-width:260px}
+.entry-form select,.entry-form input,.search-bar input{
+  font-family:inherit;
+  font-size:.85rem;
+  border:1.5px solid #c9b99a;
+  border-radius:4px;
+  padding:6px 8px;
+  background:#fffef9;
+}
+.entry-form input{flex:1}
+.search-bar{display:flex;flex:0 1 200px}
+.search-bar input{width:100%}
+
+.entry-list{list-style:none;margin-bottom:18px}
+.entry-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:5px 0;
+  border-bottom:1px dotted #ddd;
+  cursor:pointer;
+  user-select:none;
+}
+.entry-item:hover{background:#faf6ee}
+.entry-bullet{
+  width:22px;
+  text-align:center;
+  font-size:1rem;
+  flex-shrink:0;
+}
+.entry-text{flex:1;font-size:.9rem}
+.entry-item.done .entry-text{text-decoration:line-through;opacity:.5}
+.entry-item.cancelled .entry-text{text-decoration:line-through;color:#c44}
+.entry-status{font-size:.75rem;opacity:.6;flex-shrink:0}
+.entry-delete{
+  background:none;
+  border:none;
+  cursor:pointer;
+  font-size:.85rem;
+  opacity:.4;
+  transition:opacity .2s;
+}
+.entry-delete:hover{opacity:1}
+
+/* mood */
+.mood-section{
+  margin-bottom:16px;
+  padding:10px;
+  border:1.5px dashed #c9b99a;
+  border-radius:4px;
+}
+.mood-section h3{font-size:.95rem;margin-bottom:8px}
+.mood-options{display:flex;gap:8px;margin-bottom:6px}
+.mood-btn{
+  font-size:1.4rem;
+  background:none;
+  border:2px solid transparent;
+  border-radius:50%;
+  width:40px;height:40px;
+  cursor:pointer;
+  transition:border-color .2s,transform .2s;
+}
+.mood-btn:hover{transform:scale(1.15)}
+.mood-btn.selected{border-color:#333}
+#mood-display{font-size:.85rem}
+
+.export-btn{margin-top:8px}
+
+/* ========== MONTHLY LOG ========== */
+.monthly-nav{display:flex;gap:8px;margin-bottom:10px}
+.monthly-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.monthly-table th,.monthly-table td{
+  border:1px solid #ddd;
+  padding:4px 8px;
+  text-align:left;
+}
+.monthly-table th{background:#f5f0e8}
+.monthly-table td.today{background:#ffe0e0;font-weight:bold}
+.monthly-table td input{
+  width:100%;
+  border:none;
+  background:transparent;
+  font-family:inherit;
+  font-size:.85rem;
+  outline:none;
+}
+
+/* ========== HABIT TRACKER ========== */
+.habit-controls{display:flex;gap:6px;margin-bottom:12px}
+.habit-controls input{
+  font-family:inherit;
+  font-size:.85rem;
+  border:1.5px solid #c9b99a;
+  border-radius:4px;
+  padding:6px 8px;
+  flex:1;
+  max-width:240px;
+  background:#fffef9;
+}
+.habit-table-wrap{overflow-x:auto}
+.habit-table{border-collapse:collapse;font-size:.78rem;white-space:nowrap}
+.habit-table th,.habit-table td{
+  border:1px solid #ddd;
+  padding:3px 5px;
+  text-align:center;
+  min-width:28px;
+}
+.habit-table th{background:#f5f0e8;position:sticky;top:0}
+.habit-table td.habit-name{
+  text-align:left;
+  font-weight:bold;
+  min-width:100px;
+  white-space:nowrap;
+}
+.habit-table td.habit-check{cursor:pointer;user-select:none}
+.habit-table td.habit-check:hover{background:#f0e8d8}
+.habit-table .streak{font-weight:bold;color:#e25822}
+.habit-delete{
+  background:none;
+  border:none;
+  cursor:pointer;
+  font-size:.75rem;
+  opacity:.4;
+}
+.habit-delete:hover{opacity:1}
+
+/* ========== COLLECTIONS ========== */
+.collection-controls{display:flex;gap:6px;margin-bottom:14px}
+.collection-controls input{
+  font-family:inherit;
+  font-size:.85rem;
+  border:1.5px solid #c9b99a;
+  border-radius:4px;
+  padding:6px 8px;
+  flex:1;
+  max-width:280px;
+  background:#fffef9;
+}
+.collections-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:14px;
+}
+.collection-card{
+  border:1.5px solid #c9b99a;
+  border-radius:6px;
+  padding:12px;
+  background:#fffef9;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.collection-card h3{
+  font-size:.95rem;
+  border-bottom:1px dashed #c9b99a;
+  padding-bottom:4px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.collection-card textarea{
+  width:100%;
+  min-height:80px;
+  border:1px solid #ddd;
+  border-radius:4px;
+  font-family:inherit;
+  font-size:.82rem;
+  padding:6px;
+  resize:vertical;
+  background:#fffef9;
+}
+.collection-delete{
+  background:none;
+  border:none;
+  cursor:pointer;
+  font-size:.8rem;
+  opacity:.5;
+}
+.collection-delete:hover{opacity:1}
+
+/* ========== RESPONSIVE ========== */
+@media(max-width:600px){
+  .notebook{padding:14px 10px 20px}
+  .notebook::before{left:20px}
+  .title{font-size:1.2rem}
+  .entry-form{flex-wrap:wrap}
+}
