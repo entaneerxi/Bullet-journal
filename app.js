@@ -29,6 +29,9 @@
 
   var DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+  var _uid = Date.now();
+  function uid() { return '_' + (++_uid).toString(36); }
+
   // ─── State ──────────────────────────────────────────────────
   var state = {
     entries: load('bujo_entries', []),
@@ -125,7 +128,7 @@
   function addEntry() {
     var text = $('#entry-text').value.trim();
     if (!text) return;
-    state.entries.push({ type: $('#entry-type').value, text: text, status: '', date: todayStr() });
+    state.entries.push({ id: uid(), type: $('#entry-type').value, text: text, status: '', date: todayStr() });
     $('#entry-text').value = '';
     persist();
     renderEntries($('#search-input').value);
@@ -260,19 +263,20 @@
     var tbody = $('#habit-tbody');
     tbody.innerHTML = '';
     state.habits.forEach(function (habit, hi) {
+      var hid = habit.id;
       var tr = document.createElement('tr');
-      var cells = '<td class="habit-name">' + escapeHtml(habit) + '</td>';
+      var cells = '<td class="habit-name">' + escapeHtml(habit.name) + '</td>';
       var streak = 0;
       var maxStreak = 0;
       for (var d2 = 1; d2 <= days; d2++) {
-        var key = hi + '_' + y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d2).padStart(2, '0');
+        var key = hid + '_' + y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d2).padStart(2, '0');
         var checked = state.habitChecks[key];
         cells += '<td class="habit-check" data-key="' + key + '">' + (checked ? '✓' : '') + '</td>';
         if (checked) { streak++; if (streak > maxStreak) maxStreak = streak; }
         else { streak = 0; }
       }
       cells += '<td class="streak">' + maxStreak + '</td>';
-      cells += '<td><button class="habit-delete" data-hi="' + hi + '" aria-label="Delete habit">✕</button></td>';
+      cells += '<td><button class="habit-delete" aria-label="Delete habit">✕</button></td>';
       tr.innerHTML = cells;
       tbody.appendChild(tr);
 
@@ -302,7 +306,7 @@
   function addHabit() {
     var name = $('#habit-input').value.trim();
     if (!name) return;
-    state.habits.push(name);
+    state.habits.push({ id: uid(), name: name });
     $('#habit-input').value = '';
     persist();
     renderHabits();
@@ -345,7 +349,7 @@
   function addCollection() {
     var t = $('#collection-title-input').value.trim();
     if (!t) return;
-    state.collections.push({ title: t, body: '' });
+    state.collections.push({ id: uid(), title: t, body: '' });
     $('#collection-title-input').value = '';
     persist();
     renderCollections();
