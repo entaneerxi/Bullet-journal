@@ -14,6 +14,7 @@
         <button class="tab active" data-tab="daily">Daily Log</button>
         <button class="tab" data-tab="monthly">Monthly Log</button>
         <button class="tab" data-tab="habits">Habit Tracker</button>
+        <button class="tab" data-tab="yearly">Yearly Log</button>
         <button class="tab" data-tab="collections">Collections</button>
       </nav>
     </header>
@@ -82,6 +83,16 @@
           <tbody id="habit-tbody"></tbody>
         </table>
       </div>
+    </section>
+
+    <!-- ==================== YEARLY LOG ==================== -->
+    <section id="yearly" class="page">
+      <h2 class="page-title">Yearly Log — <span id="yearly-title"></span></h2>
+      <div class="yearly-nav">
+        <button id="prev-year" class="btn" aria-label="Previous year">◀</button>
+        <button id="next-year" class="btn" aria-label="Next year">▶</button>
+      </div>
+      <div id="yearly-grid" class="yearly-grid"></div>
     </section>
 
     <!-- ==================== COLLECTIONS ==================== -->

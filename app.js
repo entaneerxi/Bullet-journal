@@ -37,17 +37,20 @@
     entries: load('bujo_entries', []),
     moods: load('bujo_moods', {}),
     monthlyNotes: load('bujo_monthly', {}),
+    yearlyNotes: load('bujo_yearly', {}),
     habits: load('bujo_habits', []),
     habitChecks: load('bujo_habitChecks', {}),
     collections: load('bujo_collections', []),
     viewMonth: new Date().getMonth(),
-    viewYear: new Date().getFullYear()
+    viewYear: new Date().getFullYear(),
+    viewYearYearly: new Date().getFullYear()
   };
 
   function persist() {
     save('bujo_entries', state.entries);
     save('bujo_moods', state.moods);
     save('bujo_monthly', state.monthlyNotes);
+    save('bujo_yearly', state.yearlyNotes);
     save('bujo_habits', state.habits);
     save('bujo_habitChecks', state.habitChecks);
     save('bujo_collections', state.collections);
@@ -313,6 +316,52 @@
   }
 
   renderHabits();
+
+  // ═══════════════════════════════════════════════════════════
+  //  YEARLY LOG
+  // ═══════════════════════════════════════════════════════════
+  var MONTH_NAMES = ['January','February','March','April','May','June',
+                     'July','August','September','October','November','December'];
+
+  function renderYearly() {
+    var y = state.viewYearYearly;
+    $('#yearly-title').textContent = y;
+
+    var now = new Date();
+    var curMonth = now.getMonth();
+    var curYear = now.getFullYear();
+
+    var grid = $('#yearly-grid');
+    grid.innerHTML = '';
+
+    for (var m = 0; m < 12; m++) {
+      var key = y + '-' + String(m + 1).padStart(2, '0');
+      var isCurrent = (m === curMonth && y === curYear);
+      var cell = document.createElement('div');
+      cell.className = 'yearly-cell' + (isCurrent ? ' current-month' : '');
+      cell.innerHTML =
+        '<h4>' + MONTH_NAMES[m] + '</h4>' +
+        '<textarea data-key="' + key + '" aria-label="' + MONTH_NAMES[m] + ' notes">' +
+        escapeHtml(state.yearlyNotes[key] || '') + '</textarea>';
+      grid.appendChild(cell);
+
+      cell.querySelector('textarea').addEventListener('input', function () {
+        state.yearlyNotes[this.dataset.key] = this.value;
+        persist();
+      });
+    }
+  }
+
+  $('#prev-year').addEventListener('click', function () {
+    state.viewYearYearly--;
+    renderYearly();
+  });
+  $('#next-year').addEventListener('click', function () {
+    state.viewYearYearly++;
+    renderYearly();
+  });
+
+  renderYearly();
 
   // ═══════════════════════════════════════════════════════════
   //  COLLECTIONS
